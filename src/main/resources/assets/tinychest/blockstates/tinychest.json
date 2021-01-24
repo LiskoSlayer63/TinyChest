@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tinychest:block/tinychest",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tinychest:block/tinychest"
+    },
+    "facing=south": {
+      "model": "tinychest:block/tinychest",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tinychest:block/tinychest",
+      "y": 270
+    }
+  }
+}

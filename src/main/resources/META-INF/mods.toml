@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[35,)"
+
+license="GNU Lesser General Public License v3.0"
+issueTrackerURL="https://github.com/LiskoSlayer63/TinyChest/issues"
+
+[[mods]]
+modId="tinychest"
+version="1.0.0"
+
+displayName="TinyChest"
+#displayURL="https://www.curseforge.com/minecraft/mc-mods/trashcans-reborn"
+logoFile="tinychest.png"
+authors="LiskoSlayer63"
+
+description='''
+Simply a tiny chest.
+'''
+
+[[dependencies.garbagebins]]
+    modId="forge"
+    mandatory=true
+    versionRange="[35,)"
+    ordering="NONE"
+    side="BOTH"
+	
+[[dependencies.garbagebins]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.4,1.17)"
+    ordering="NONE"
+    side="BOTH"
