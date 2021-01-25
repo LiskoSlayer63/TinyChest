@@ -1,5 +1,7 @@
 package lizcraft.tinychest.client.render;
 
+import java.util.function.Supplier;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import lizcraft.tinychest.common.CommonContent;
@@ -14,13 +16,14 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.Lazy;
 
 public class ItemStackRenderer extends ItemStackTileEntityRenderer 
 {
 	public static final ItemStackTileEntityRenderer INSTANCE = new ItemStackRenderer();
 	
-	private final TinyChestTileEntity tinyChest = new TinyChestTileEntity();
-	private final TinyChestTileEntity trapTinyChest = new TrappedTinyChestTileEntity();
+	private final Supplier<TinyChestTileEntity> tinyChest = Lazy.of(TinyChestTileEntity::new);
+	private final Supplier<TrappedTinyChestTileEntity> trapTinyChest = Lazy.of(TrappedTinyChestTileEntity::new);
 	
 	public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType p_239207_2_, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
 	{
@@ -32,9 +35,9 @@ public class ItemStackRenderer extends ItemStackTileEntityRenderer
 			TileEntity tileEntity;
 			
 			if (block == CommonContent.TINYCHEST_BLOCK)
-				tileEntity = this.tinyChest;
+				tileEntity = this.tinyChest.get();
 			else if (block == CommonContent.TRAPPED_TINYCHEST_BLOCK)
-				tileEntity = this.trapTinyChest;
+				tileEntity = this.trapTinyChest.get();
 			else
 				return;
 			

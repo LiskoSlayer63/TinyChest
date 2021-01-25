@@ -34,10 +34,15 @@ public class CommonContent
 	
 	public static ContainerType<TinyChestContainer> TINYCHEST_CONTAINER;
 	
-	public static void init()
+	
+	public static void register(IEventBus eventBus)
 	{
-		// Initialize blocks
-		
+		eventBus.register(CommonContent.class);
+	}
+	
+	@SubscribeEvent
+	public static void onBlocksRegistration(final RegistryEvent.Register<Block> event) 
+	{
 		TINYCHEST_BLOCK = new TinyChestBlock(
 				AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).
 				sound(SoundType.WOOD).
@@ -51,17 +56,13 @@ public class CommonContent
 				).setRegistryName("trapped_tinychest");
 		
 		
-		// Initialize entity types
-		
-		TINYCHEST_TILEENTITYTYPE = TileEntityType.Builder.create(TinyChestTileEntity::new, TINYCHEST_BLOCK).build(null);
-		TINYCHEST_TILEENTITYTYPE.setRegistryName(TINYCHEST_BLOCK.getRegistryName());
+    	event.getRegistry().register(TINYCHEST_BLOCK);
+    	event.getRegistry().register(TRAPPED_TINYCHEST_BLOCK);
+	}
 
-		TRAPPED_TINYCHEST_TILEENTITYTYPE = TileEntityType.Builder.create(TrappedTinyChestTileEntity::new, TRAPPED_TINYCHEST_BLOCK).build(null);
-		TRAPPED_TINYCHEST_TILEENTITYTYPE.setRegistryName(TRAPPED_TINYCHEST_BLOCK.getRegistryName());
-
-		
-		// Initialize items
-		
+	@SubscribeEvent
+	public static void onItemsRegistration(final RegistryEvent.Register<Item> event) 
+	{
 		TINYCHEST_ITEM = new BlockItem(TINYCHEST_BLOCK, new Item.Properties().
 				group(ItemGroup.DECORATIONS).
 				setISTER(() -> () -> ItemStackRenderer.INSTANCE)
@@ -71,29 +72,8 @@ public class CommonContent
 				group(ItemGroup.REDSTONE).
 				setISTER(() -> () -> ItemStackRenderer.INSTANCE)
 				).setRegistryName(TRAPPED_TINYCHEST_BLOCK.getRegistryName());
-
 		
-		// Initialize containers
 		
-		TINYCHEST_CONTAINER = IForgeContainerType.create(TinyChestContainer::new);
-		TINYCHEST_CONTAINER.setRegistryName(TINYCHEST_BLOCK.getRegistryName());
-	}
-	
-	public static void register(IEventBus eventBus)
-	{
-		eventBus.register(CommonContent.class);
-	}
-	
-	@SubscribeEvent
-	public static void onBlocksRegistration(final RegistryEvent.Register<Block> event) 
-	{
-    	event.getRegistry().register(TINYCHEST_BLOCK);
-    	event.getRegistry().register(TRAPPED_TINYCHEST_BLOCK);
-	}
-
-	@SubscribeEvent
-	public static void onItemsRegistration(final RegistryEvent.Register<Item> event) 
-	{
 		event.getRegistry().register(TINYCHEST_ITEM);
 		event.getRegistry().register(TRAPPED_TINYCHEST_ITEM);
 	}
@@ -101,6 +81,13 @@ public class CommonContent
 	@SubscribeEvent
 	public static void onTileEntityTypeRegistration(final RegistryEvent.Register<TileEntityType<?>> event) 
 	{
+		TINYCHEST_TILEENTITYTYPE = TileEntityType.Builder.create(TinyChestTileEntity::new, TINYCHEST_BLOCK).build(null);
+		TINYCHEST_TILEENTITYTYPE.setRegistryName(TINYCHEST_BLOCK.getRegistryName());
+
+		TRAPPED_TINYCHEST_TILEENTITYTYPE = TileEntityType.Builder.create(TrappedTinyChestTileEntity::new, TRAPPED_TINYCHEST_BLOCK).build(null);
+		TRAPPED_TINYCHEST_TILEENTITYTYPE.setRegistryName(TRAPPED_TINYCHEST_BLOCK.getRegistryName());
+		
+		
 		event.getRegistry().register(TINYCHEST_TILEENTITYTYPE);
 		event.getRegistry().register(TRAPPED_TINYCHEST_TILEENTITYTYPE);
 	}
@@ -108,6 +95,10 @@ public class CommonContent
 	@SubscribeEvent
 	public static void registerContainers(final RegistryEvent.Register<ContainerType<?>> event)
 	{
+		TINYCHEST_CONTAINER = IForgeContainerType.create(TinyChestContainer::new);
+		TINYCHEST_CONTAINER.setRegistryName(TINYCHEST_BLOCK.getRegistryName());
+		
+		
 		event.getRegistry().register(TINYCHEST_CONTAINER);
 	}
 }
