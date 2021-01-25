@@ -21,8 +21,6 @@ public class TinyChest
 		
 		Logger.init(LogManager.getLogger(TinyChest.class));
 		
-		//CommonContent.init();
-		
 		CommonContent.register(modEventBus);
 		ClientContent.register(modEventBus);
 	}
