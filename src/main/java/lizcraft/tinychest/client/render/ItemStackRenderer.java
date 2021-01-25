@@ -23,7 +23,7 @@ public class ItemStackRenderer extends ItemStackTileEntityRenderer
 	public static final ItemStackTileEntityRenderer INSTANCE = new ItemStackRenderer();
 	
 	private final Supplier<TinyChestTileEntity> tinyChest = Lazy.of(TinyChestTileEntity::new);
-	private final Supplier<TrappedTinyChestTileEntity> trapTinyChest = Lazy.of(TrappedTinyChestTileEntity::new);
+	private final Supplier<TinyChestTileEntity> trapTinyChest = Lazy.of(TrappedTinyChestTileEntity::new);
 	
 	public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType p_239207_2_, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
 	{
