@@ -23,9 +23,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -42,13 +44,13 @@ _interface = IChestLid.class
 )
 public class TinyChestTileEntity extends TileEntity implements IChestLid, ITickableTileEntity, ICapabilityProvider, INamedContainerProvider, IInventory
 {
-	private final NonNullList<ItemStack> inventory = NonNullList.withSize(5, ItemStack.EMPTY);
-	private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> new InvWrapper(this));
+	protected final NonNullList<ItemStack> inventory = NonNullList.withSize(5, ItemStack.EMPTY);
+	protected final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> new InvWrapper(this));
 	
-	private float lidAngle;
-	private float prevLidAngle;
+	protected float lidAngle;
+	protected float prevLidAngle;
 	
-	private int numPlayersUsing;
+	protected int numPlayersUsing;
 	private int ticksSinceSync;
 	
 	public TinyChestTileEntity(TileEntityType<?> tileEntityTypeIn) 
@@ -284,8 +286,21 @@ public class TinyChestTileEntity extends TileEntity implements IChestLid, ITicka
 	    return count;
 	}
 	
+	public static int getPlayersUsing(IBlockReader reader, BlockPos posIn) 
+	{
+		BlockState blockstate = reader.getBlockState(posIn);
+		if (blockstate.hasTileEntity()) 
+		{
+			TileEntity tileentity = reader.getTileEntity(posIn);
+			if (tileentity instanceof TinyChestTileEntity)
+				return ((TinyChestTileEntity)tileentity).numPlayersUsing;
+		}
+
+		return 0;
+	}
+	
 	private void playSound(SoundEvent soundIn) 
 	{
-		this.world.playSound((PlayerEntity)null, this.pos, soundIn, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+		this.world.playSound((PlayerEntity)null, this.pos, soundIn, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 1.2F);
 	}
 }

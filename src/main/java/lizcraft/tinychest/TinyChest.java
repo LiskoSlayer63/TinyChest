@@ -20,7 +20,6 @@ public class TinyChest
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		
 		Logger.init(LogManager.getLogger(TinyChest.class));
-		Logger.enableDebug(true);
 		
 		CommonContent.init();
 		

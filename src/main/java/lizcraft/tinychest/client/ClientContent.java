@@ -20,6 +20,7 @@ public class ClientContent
 	public static void onClientSetupEvent(FMLClientSetupEvent event) 
 	{
 		ClientRegistry.bindTileEntityRenderer(CommonContent.TINYCHEST_TILEENTITYTYPE, TinyChestRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(CommonContent.TRAPPED_TINYCHEST_TILEENTITYTYPE, TinyChestRenderer::new);
 		ScreenManager.registerFactory(CommonContent.TINYCHEST_CONTAINER, TinyChestContainerScreen::new);
 	}
 }

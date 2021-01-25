@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import lizcraft.tinychest.common.CommonContent;
 import lizcraft.tinychest.common.block.TinyChestBlock;
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
+import lizcraft.tinychest.common.tile.TrappedTinyChestTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.renderer.Atlases;
@@ -18,7 +19,6 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.state.properties.ChestType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -55,12 +55,22 @@ public class TinyChestRenderer extends TileEntityRenderer<TinyChestTileEntity>
         float lidAngle = 1.0F - tileEntityIn.getLidAngle(partialTicks);
         lidAngle = 1.0F - lidAngle * lidAngle * lidAngle;
         
-		RenderMaterial renderMaterial = Atlases.getChestMaterial(tileEntityIn, ChestType.SINGLE, this.isChristmas);
+		RenderMaterial renderMaterial = getRenderMaterial(tileEntityIn, this.isChristmas);
         IVertexBuilder renderBuffer = renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
         
 	    MODEL.render(matrixStackIn, renderBuffer, combinedLightIn, combinedOverlayIn, lidAngle);
 
 	    matrixStackIn.pop();
+	}
+	
+	private static RenderMaterial getRenderMaterial(TinyChestTileEntity tileEntity, boolean isHoliday)
+	{
+		if (isHoliday)
+			return Atlases.CHEST_XMAS_MATERIAL;
+		else if (tileEntity instanceof TrappedTinyChestTileEntity)
+			return Atlases.CHEST_TRAPPED_MATERIAL;
+		else
+			return Atlases.CHEST_MATERIAL;
 	}
 	
 	

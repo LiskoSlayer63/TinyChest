@@ -6,10 +6,10 @@ issueTrackerURL="https://github.com/LiskoSlayer63/TinyChest/issues"
 
 [[mods]]
 modId="tinychest"
-version="1.0.0"
+version="1.1.0"
 
 displayName="TinyChest"
-#displayURL="https://www.curseforge.com/minecraft/mc-mods/trashcans-reborn"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/tinychest"
 logoFile="tinychest.png"
 authors="LiskoSlayer63"
 
