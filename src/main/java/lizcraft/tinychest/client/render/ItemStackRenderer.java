@@ -5,8 +5,9 @@ import java.util.function.Supplier;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import lizcraft.tinychest.common.CommonContent;
+import lizcraft.tinychest.common.tile.TinyEnderChestTileEntity;
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
-import lizcraft.tinychest.common.tile.TrappedTinyChestTileEntity;
+import lizcraft.tinychest.common.tile.TinyTrappedChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -23,7 +24,8 @@ public class ItemStackRenderer extends ItemStackTileEntityRenderer
 	public static final ItemStackTileEntityRenderer INSTANCE = new ItemStackRenderer();
 	
 	private final Supplier<TinyChestTileEntity> tinyChest = Lazy.of(TinyChestTileEntity::new);
-	private final Supplier<TinyChestTileEntity> trapTinyChest = Lazy.of(TrappedTinyChestTileEntity::new);
+	private final Supplier<TinyChestTileEntity> trapTinyChest = Lazy.of(TinyTrappedChestTileEntity::new);
+	private final Supplier<TinyEnderChestTileEntity> enderTinyChest = Lazy.of(TinyEnderChestTileEntity::new);
 	
 	public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType p_239207_2_, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
 	{
@@ -38,6 +40,8 @@ public class ItemStackRenderer extends ItemStackTileEntityRenderer
 				tileEntity = this.tinyChest.get();
 			else if (block == CommonContent.TRAPPED_TINYCHEST_BLOCK)
 				tileEntity = this.trapTinyChest.get();
+			else if (block == CommonContent.ENDER_TINYCHEST_BLOCK)
+				tileEntity = this.enderTinyChest.get();
 			else
 				return;
 			

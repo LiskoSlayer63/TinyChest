@@ -21,6 +21,8 @@ public class ClientContent
 	{
 		ClientRegistry.bindTileEntityRenderer(CommonContent.TINYCHEST_TILEENTITYTYPE, TinyChestRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(CommonContent.TRAPPED_TINYCHEST_TILEENTITYTYPE, TinyChestRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(CommonContent.ENDER_TINYCHEST_TILEENTITYTYPE, TinyChestRenderer::new);
+		
 		ScreenManager.registerFactory(CommonContent.TINYCHEST_CONTAINER, TinyChestContainerScreen::new);
 	}
 }

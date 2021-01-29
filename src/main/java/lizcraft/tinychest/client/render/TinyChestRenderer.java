@@ -7,8 +7,8 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import lizcraft.tinychest.common.CommonContent;
 import lizcraft.tinychest.common.block.TinyChestBlock;
-import lizcraft.tinychest.common.tile.TinyChestTileEntity;
-import lizcraft.tinychest.common.tile.TrappedTinyChestTileEntity;
+import lizcraft.tinychest.common.tile.TinyEnderChestTileEntity;
+import lizcraft.tinychest.common.tile.TinyTrappedChestTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.renderer.Atlases;
@@ -19,11 +19,13 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.tileentity.IChestLid;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
-public class TinyChestRenderer extends TileEntityRenderer<TinyChestTileEntity>
+public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEntityRenderer<T>
 {
 	private static final TinyChestModel MODEL = new TinyChestModel();
 	
@@ -39,7 +41,7 @@ public class TinyChestRenderer extends TileEntityRenderer<TinyChestTileEntity>
 	}
 	
 	@Override
-	public void render(TinyChestTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) 
+	public void render(T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) 
 	{
 		World world = tileEntityIn.getWorld();
 	    BlockState blockstate = world != null ? tileEntityIn.getBlockState() : CommonContent.TINYCHEST_BLOCK.getDefaultState().with(TinyChestBlock.FACING, Direction.SOUTH);
@@ -63,12 +65,14 @@ public class TinyChestRenderer extends TileEntityRenderer<TinyChestTileEntity>
 	    matrixStackIn.pop();
 	}
 	
-	private static RenderMaterial getRenderMaterial(TinyChestTileEntity tileEntity, boolean isHoliday)
+	private static RenderMaterial getRenderMaterial(TileEntity tileEntity, boolean isHoliday)
 	{
 		if (isHoliday)
 			return Atlases.CHEST_XMAS_MATERIAL;
-		else if (tileEntity instanceof TrappedTinyChestTileEntity)
+		else if (tileEntity instanceof TinyTrappedChestTileEntity)
 			return Atlases.CHEST_TRAPPED_MATERIAL;
+		else if (tileEntity instanceof TinyEnderChestTileEntity)
+			return Atlases.ENDER_CHEST_MATERIAL;
 		else
 			return Atlases.CHEST_MATERIAL;
 	}

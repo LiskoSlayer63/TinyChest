@@ -1,25 +1,34 @@
 package lizcraft.tinychest.common.block;
 
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
-import lizcraft.tinychest.common.tile.TrappedTinyChestTileEntity;
+import lizcraft.tinychest.common.tile.TinyTrappedChestTileEntity;
 import net.minecraft.block.BlockState;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
 
-public class TrappedTinyChestBlock extends TinyChestBlock
+public class TinyTrappedChestBlock extends TinyChestBlock
 {
-	public TrappedTinyChestBlock(Properties properties) 
+	public TinyTrappedChestBlock(Properties properties) 
 	{
 		super(properties);
+	}
+	
+	@Override
+	protected Stat<ResourceLocation> getOpenStat() 
+	{
+		return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
 	}
 
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) 
 	{
-		return new TrappedTinyChestTileEntity();
+		return new TinyTrappedChestTileEntity();
 	}
 	
 	@Override

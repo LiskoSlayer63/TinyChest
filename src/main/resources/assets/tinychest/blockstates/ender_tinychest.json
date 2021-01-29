@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "tinychest:block/ender_tinychest"
+    }
+  }
+}

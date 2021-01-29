@@ -2,9 +2,9 @@ package lizcraft.tinychest.common.tile;
 
 import lizcraft.tinychest.common.CommonContent;
 
-public class TrappedTinyChestTileEntity extends TinyChestTileEntity 
+public class TinyTrappedChestTileEntity extends TinyChestTileEntity 
 {
-	public TrappedTinyChestTileEntity() 
+	public TinyTrappedChestTileEntity() 
 	{
 		super(CommonContent.TRAPPED_TINYCHEST_TILEENTITYTYPE);
 	}

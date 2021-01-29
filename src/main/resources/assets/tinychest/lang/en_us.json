@@ -1,4 +1,5 @@
 {
 	"block.tinychest.tinychest": "Tiny Chest",
-	"block.tinychest.trapped_tinychest": "Trapped Tiny Chest"
+	"block.tinychest.trapped_tinychest": "Tiny Trapped Chest",
+	"block.tinychest.ender_tinychest": "Tiny Ender Chest"
 }
