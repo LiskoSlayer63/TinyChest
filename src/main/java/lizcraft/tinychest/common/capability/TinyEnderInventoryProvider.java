@@ -4,7 +4,7 @@ import lizcraft.tinychest.common.TinyEnderInventory;
 
 public class TinyEnderInventoryProvider implements ITinyEnderInventory 
 {
-	private TinyEnderInventory inventory;
+	private TinyEnderInventory inventory = new TinyEnderInventory();
 
 	@Override
 	public void setInventory(TinyEnderInventory inventory) 

@@ -37,12 +37,10 @@ public class TinyEnderInventoryCapability
 		public void readNBT(Capability<ITinyEnderInventory> capability, ITinyEnderInventory instance, Direction side, INBT nbt) 
 		{
 			CompoundNBT compound = (CompoundNBT)nbt;
-			TinyEnderInventory inventory = new TinyEnderInventory();
+			TinyEnderInventory inventory = instance.getInventory();
 			
 			if (compound.contains("TinyChestEnderItems", 9))
 				inventory.read(compound.getList("TinyChestEnderItems", 10));
-			
-			instance.setInventory(inventory);
 		}
 	}
 }
