@@ -51,10 +51,10 @@ public class TinyEnderInventory extends Inventory
 				compound.putByte("Slot", (byte)i);
 				stack.write(compound);
 				listnbt.add(compound);
-	         }
-	      }
-
-	      return listnbt;
+			}
+		}
+		
+		return listnbt;
 	}
 	
 	@Override

@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.LazyOptional;
 public class TinyEnderInventoryCapabilityProvider implements ICapabilitySerializable<CompoundNBT>
 {
 	private final TinyEnderInventoryProvider instance = new TinyEnderInventoryProvider();
-    private final LazyOptional<ITinyEnderInventory> handler = LazyOptional.of(() -> instance);
+	private final LazyOptional<ITinyEnderInventory> handler = LazyOptional.of(() -> instance);
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) 

@@ -27,7 +27,8 @@ public class TinyEnderInventoryCapability
 			CompoundNBT compound = new CompoundNBT();
 			TinyEnderInventory inventory = instance.getInventory();
 			
-			compound.put("TinyChestEnderItems", inventory.write());
+			if (inventory != null)
+				compound.put("TinyChestEnderItems", inventory.write());
 			
 			return compound;
 		}
@@ -37,6 +38,9 @@ public class TinyEnderInventoryCapability
 		{
 			CompoundNBT compound = (CompoundNBT)nbt;
 			TinyEnderInventory inventory = instance.getInventory();
+			
+			if (inventory == null)
+				inventory = new TinyEnderInventory();
 			
 			if (compound.contains("TinyChestEnderItems", 9))
 				inventory.read(compound.getList("TinyChestEnderItems", 10));
