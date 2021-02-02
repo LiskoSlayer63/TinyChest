@@ -27,7 +27,7 @@ public class CommonEvents
 		if (!(entity instanceof PlayerEntity))
 			return;
 		
-		event.addCapability(CommonContent.ENDER_TINYCHEST_CAPABILITY, new TinyEnderInventoryCapabilityProvider());
+		event.addCapability(CommonContent.TINY_ENDERINVENTORY_CAPABILITY_KEY, new TinyEnderInventoryCapabilityProvider());
 	}
 	
 	@SubscribeEvent
@@ -45,7 +45,6 @@ public class CommonEvents
 		LazyOptional<ITinyEnderInventory> origCap = original.getCapability(TinyEnderInventoryCapability.TINY_ENDERINVENTORY_CAPABILITY);
 		LazyOptional<ITinyEnderInventory> newCap = player.getCapability(TinyEnderInventoryCapability.TINY_ENDERINVENTORY_CAPABILITY);
 		
-		if (origCap.isPresent() && newCap.isPresent())
-			newCap.resolve().get().setInventory(origCap.resolve().get().getInventory());
+		origCap.ifPresent(origHandler -> newCap.ifPresent(newHandler -> newHandler.setInventory(origHandler.getInventory())));
 	}
 }

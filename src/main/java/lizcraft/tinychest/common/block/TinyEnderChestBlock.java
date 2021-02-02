@@ -65,9 +65,9 @@ public class TinyEnderChestBlock extends Block implements IWaterLoggable
 		LazyOptional<ITinyEnderInventory> capability = player.getCapability(TinyEnderInventoryCapability.TINY_ENDERINVENTORY_CAPABILITY);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		
-		if (capability != null && capability.isPresent() && tileEntity instanceof TinyEnderChestTileEntity)
+		if (tileEntity instanceof TinyEnderChestTileEntity)
 		{
-			TinyEnderInventory tinyEnderInventory = capability.resolve().get().getInventory();
+			TinyEnderInventory tinyEnderInventory = capability.orElseThrow(() -> new IllegalStateException("TinyEnderInventoryCapability was not present!")).getInventory();
 			TinyEnderChestTileEntity tinyEnderChestTileEntity = (TinyEnderChestTileEntity)tileEntity;
 			
 			tinyEnderInventory.setChestTileEntity(tinyEnderChestTileEntity);

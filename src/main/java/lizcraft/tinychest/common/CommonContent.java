@@ -29,7 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class CommonContent 
 {
-	public static final ResourceLocation ENDER_TINYCHEST_CAPABILITY = new ResourceLocation(TinyChest.MOD_ID, "ender_inventory");
+	public static final ResourceLocation TINY_ENDERINVENTORY_CAPABILITY_KEY = new ResourceLocation(TinyChest.MOD_ID, "ender_inventory");
 	
 	public static Block TINYCHEST_BLOCK;
 	public static Block TRAPPED_TINYCHEST_BLOCK;

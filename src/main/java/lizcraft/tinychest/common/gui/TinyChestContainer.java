@@ -33,7 +33,7 @@ public class TinyChestContainer extends Container
 	
 	public TinyChestContainer(int id, PlayerInventory playerInventory, PacketBuffer extraData) 
 	{
-		this(id, playerInventory, new Inventory(6));
+		this(id, playerInventory, new Inventory(5));
 	}
 	
 	public TinyChestContainer(int id, PlayerInventory playerInventory, IInventory inventory)
