@@ -19,6 +19,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -29,7 +30,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class CommonContent 
 {
-	public static final ResourceLocation TINY_ENDERINVENTORY_CAPABILITY_KEY = new ResourceLocation(TinyChest.MOD_ID, "ender_inventory");
+	public static final ResourceLocation TINY_ENDERINVENTORY_CAPABILITY_KEY = new ResourceLocation(TinyChest.MOD_ID, "ender_inventory");	
+	public static final BooleanProperty DOUBLE_CHEST = BooleanProperty.create("double_tinychest");
 	
 	public static Block TINYCHEST_BLOCK;
 	public static Block TRAPPED_TINYCHEST_BLOCK;
@@ -66,9 +68,7 @@ public class CommonContent
 				).setRegistryName("tinychest");
 		
 		TRAPPED_TINYCHEST_BLOCK = new TinyTrappedChestBlock(
-				AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).
-				sound(SoundType.WOOD).
-				hardnessAndResistance(1.5F)
+				AbstractBlock.Properties.from(TINYCHEST_BLOCK)
 				).setRegistryName("trapped_tinychest");
 		
 		ENDER_TINYCHEST_BLOCK = new TinyEnderChestBlock(
@@ -131,7 +131,6 @@ public class CommonContent
 	{
 		TINYCHEST_CONTAINER = IForgeContainerType.create(TinyChestContainer::new);
 		TINYCHEST_CONTAINER.setRegistryName(TINYCHEST_BLOCK.getRegistryName());
-		
 		
 		event.getRegistry().register(TINYCHEST_CONTAINER);
 	}

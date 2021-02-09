@@ -1,18 +1,21 @@
 package lizcraft.tinychest.common.block;
 
+import javax.annotation.Nullable;
+
+import lizcraft.tinychest.common.CommonContent;
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
+import lizcraft.tinychest.utils.TinyItemHandlerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.monster.piglin.PiglinTasks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
@@ -34,17 +37,27 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public class TinyChestBlock extends Block implements IWaterLoggable
 {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final BooleanProperty DOUBLE_CHEST = CommonContent.DOUBLE_CHEST;
+	
 	protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(4.5D, 0.0D, 4.5D, 11.5D, 7.0D, 11.5D);
+	protected static final VoxelShape DOUBLE_SHAPE_NORTH_SOUTH = Block.makeCuboidShape(0.5D, 0.0D, 4.5D, 15.5D, 7.0D, 11.5D);
+	protected static final VoxelShape DOUBLE_SHAPE_WEST_EAST = Block.makeCuboidShape(4.5D, 0.0D, 0.5D, 11.5D, 7.0D, 15.5D);
 
 	public TinyChestBlock(Properties properties) 
 	{
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, Boolean.valueOf(false)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, Boolean.valueOf(false)).with(DOUBLE_CHEST, Boolean.valueOf(false)));
 	}
 	
 	@Override
@@ -54,9 +67,9 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 			return ActionResultType.SUCCESS;
 		
 		TileEntity tileentity = worldIn.getTileEntity(pos);
-		if (tileentity instanceof TinyChestTileEntity)
+		if (tileentity instanceof TinyChestTileEntity && player instanceof ServerPlayerEntity)
 		{
-			player.openContainer((TinyChestTileEntity)tileentity);
+			NetworkHooks.openGui((ServerPlayerEntity)player, (TinyChestTileEntity)tileentity, pos);
             player.addStat(this.getOpenStat());
             PiglinTasks.func_234478_a_(player, true);
 		}
@@ -72,13 +85,21 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) 
 	{
-		builder.add(FACING, WATERLOGGED);
+		builder.add(FACING, WATERLOGGED, DOUBLE_CHEST);
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
 	{
-		return BASE_SHAPE;
+		if (!state.get(DOUBLE_CHEST))
+			return BASE_SHAPE;
+		
+		Direction direction = state.get(FACING);
+		
+		if (direction == Direction.NORTH || direction == Direction.SOUTH)
+			return DOUBLE_SHAPE_NORTH_SOUTH;
+		
+		return DOUBLE_SHAPE_WEST_EAST;
 	}
 
 	@Override
@@ -86,8 +107,12 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	{
 		Direction direction = context.getPlacementHorizontalFacing().getOpposite();
 		FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
+		BlockState blockstate = context.getWorld().getBlockState(context.getPos());
 		
-		return this.getDefaultState().with(FACING, direction).with(WATERLOGGED, Boolean.valueOf(fluidstate.getFluid() == Fluids.WATER));
+		if (blockstate.isIn(this))
+			return blockstate.with(DOUBLE_CHEST, Boolean.valueOf(true));
+		
+		return this.getDefaultState().with(FACING, direction).with(WATERLOGGED, Boolean.valueOf(fluidstate.getFluid() == Fluids.WATER)).with(DOUBLE_CHEST, Boolean.valueOf(false));
 	}
 
 	@Override
@@ -119,6 +144,42 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	{
 		return state.with(FACING, rot.rotate(state.get(FACING)));
 	}
+	
+	@Override
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid)
+	{
+		if (state.get(DOUBLE_CHEST))
+			return true;
+		
+		return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+	}
+	
+	@Override
+	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) 
+	{
+		super.harvestBlock(worldIn, player, pos, state, te, stack);
+		
+		if (state.get(DOUBLE_CHEST))
+		{
+			this.dropItemsAtRange(worldIn, pos, 5, 10);
+			worldIn.setBlockState(pos, state.with(DOUBLE_CHEST, Boolean.valueOf(false)), Constants.BlockFlags.BLOCK_UPDATE);
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) 
+	{
+		if (!state.isIn(newState.getBlock())) 
+		{
+			this.dropItemsAtRange(worldIn, pos, 0, 10);
+	        
+	        if (state.get(DOUBLE_CHEST))
+	        	TinyItemHandlerHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock().asItem()));
+	        
+	        super.onReplaced(state, worldIn, pos, newState, isMoving);
+		}
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -133,18 +194,12 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) 
+	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) 
 	{
-		if (!state.isIn(newState.getBlock())) 
-		{
-			TileEntity tileentity = worldIn.getTileEntity(pos);
-			if (tileentity instanceof TinyChestTileEntity) 
-				InventoryHelper.dropInventoryItems(worldIn, pos, (TinyChestTileEntity)tileentity);
-	        super.onReplaced(state, worldIn, pos, newState, isMoving);
-		}
+		return useContext.getItem().getItem() == this.asItem() && !state.get(DOUBLE_CHEST) ? true : super.isReplaceable(state, useContext);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -168,7 +223,7 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	@Override
 	public boolean hasComparatorInputOverride(BlockState state) 
 	{
-	      return true;
+		return true;
 	}
 
 	@Override
@@ -176,7 +231,21 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof TinyChestTileEntity)
-			return Container.calcRedstoneFromInventory((IInventory)tileentity);
+		{
+			LazyOptional<IItemHandler> capability = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+			if (capability.isPresent())
+				return ItemHandlerHelper.calcRedstoneFromInventory(capability.orElse(null));
+		}
 		return 0;
+	}
+	
+	protected void dropItemsAtRange(World worldIn, BlockPos pos, int min, int max)
+	{
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if (tileentity instanceof TinyChestTileEntity) 
+		{
+			LazyOptional<IItemHandler> capability = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+			capability.ifPresent((handler) -> TinyItemHandlerHelper.dropInventoryItemsAtRange(worldIn, pos, handler, min, max));
+		}
 	}
 }

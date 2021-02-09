@@ -42,13 +42,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class TinyEnderChestBlock extends Block implements IWaterLoggable
 {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(4.5D, 0.0D, 4.5D, 11.5D, 7.0D, 11.5D);
-	private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("block.tinychest.ender_tinychest");
+	private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.tinychest.ender_tinychest");
 	
 	public TinyEnderChestBlock(Properties properties) 
 	{
@@ -73,7 +74,7 @@ public class TinyEnderChestBlock extends Block implements IWaterLoggable
 			tinyEnderInventory.setChestTileEntity(tinyEnderChestTileEntity);
 			
 			player.openContainer(new SimpleNamedContainerProvider((id, inventory, playerIn) -> {
-				return new TinyChestContainer(id, inventory, tinyEnderInventory);
+				return new TinyChestContainer(id, inventory, new InvWrapper(tinyEnderInventory), tinyEnderChestTileEntity);
 			}, CONTAINER_NAME));
 			
 			player.addStat(Stats.OPEN_ENDERCHEST);

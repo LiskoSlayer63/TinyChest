@@ -27,6 +27,7 @@ public class ItemStackRenderer extends ItemStackTileEntityRenderer
 	private final Supplier<TinyChestTileEntity> trapTinyChest = Lazy.of(TinyTrappedChestTileEntity::new);
 	private final Supplier<TinyEnderChestTileEntity> enderTinyChest = Lazy.of(TinyEnderChestTileEntity::new);
 	
+	@Override
 	public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType p_239207_2_, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
 	{
 		Item item = stack.getItem();

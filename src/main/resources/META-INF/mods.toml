@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/LiskoSlayer63/TinyChest/issues"
 
 [[mods]]
 modId="tinychest"
-version="1.2.0"
+version="1.3.0"
 
 displayName="TinyChest"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tinychest"
@@ -14,17 +14,17 @@ logoFile="tinychest.png"
 authors="LiskoSlayer63"
 
 description='''
-Simply a tiny chest.
+Adds tiny chests!
 '''
 
-[[dependencies.garbagebins]]
+[[dependencies.tinychest]]
     modId="forge"
     mandatory=true
     versionRange="[35,)"
     ordering="NONE"
     side="BOTH"
 	
-[[dependencies.garbagebins]]
+[[dependencies.tinychest]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.16.4,1.17)"

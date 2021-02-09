@@ -1,6 +1,7 @@
 package lizcraft.tinychest.common.tile;
 
 import lizcraft.tinychest.common.CommonContent;
+import lizcraft.tinychest.common.ITinyChestContainer;
 import lizcraft.tinychest.common.block.TinyEnderChestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -20,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 value = Dist.CLIENT,
 _interface = IChestLid.class
 )
-public class TinyEnderChestTileEntity extends TileEntity implements IChestLid, ITickableTileEntity
+public class TinyEnderChestTileEntity extends TileEntity implements ITinyChestContainer, IChestLid, ITickableTileEntity
 {
 	protected float lidAngle;
 	protected float prevLidAngle;
@@ -94,18 +95,21 @@ public class TinyEnderChestTileEntity extends TileEntity implements IChestLid, I
 		super.remove();
 	}
 
-	public void openChest() 
+	@Override
+	public void openContainer(PlayerEntity player) 
 	{
 		this.numPlayersUsing++;
 		this.onOpenOrClose();
 	}
 
-	public void closeChest() 
+	@Override
+	public void closeContainer(PlayerEntity player) 
 	{
 		this.numPlayersUsing--;
 		this.onOpenOrClose();
 	}
 
+	@Override
 	public boolean canBeUsed(PlayerEntity player) 
 	{
 		if (this.world.getTileEntity(this.pos) != this) 

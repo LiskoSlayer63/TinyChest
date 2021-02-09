@@ -1,6 +1,5 @@
 package lizcraft.tinychest.common;
 
-import lizcraft.tinychest.common.tile.TinyEnderChestTileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -9,14 +8,14 @@ import net.minecraft.nbt.ListNBT;
 
 public class TinyEnderInventory extends Inventory
 {
-	private TinyEnderChestTileEntity associatedChest;
+	private ITinyChestContainer associatedChest;
 	
 	public TinyEnderInventory()
 	{
 		super(5);
 	}
 	
-	public void setChestTileEntity(TinyEnderChestTileEntity chestTileEntity)
+	public void setChestTileEntity(ITinyChestContainer chestTileEntity)
 	{
 		this.associatedChest = chestTileEntity;
 	}
@@ -67,7 +66,7 @@ public class TinyEnderInventory extends Inventory
 	public void openInventory(PlayerEntity player)
 	{
 		if (this.associatedChest != null)
-			this.associatedChest.openChest();
+			this.associatedChest.openContainer(player);
 		super.openInventory(player);
 	}
 	
@@ -75,7 +74,7 @@ public class TinyEnderInventory extends Inventory
 	public void closeInventory(PlayerEntity player)
 	{
 		if (this.associatedChest != null)
-			this.associatedChest.closeChest();
+			this.associatedChest.closeContainer(player);
 		super.closeInventory(player);
 		this.associatedChest = null;
 	}
