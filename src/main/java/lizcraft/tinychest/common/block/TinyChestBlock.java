@@ -148,22 +148,26 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 	@Override
 	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid)
 	{
-		if (state.get(DOUBLE_CHEST))
+		if (state.get(DOUBLE_CHEST) && !player.isCreative())
 			return true;
-		
+
 		return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 	}
 	
 	@Override
 	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) 
 	{
-		super.harvestBlock(worldIn, player, pos, state, te, stack);
-		
 		if (state.get(DOUBLE_CHEST))
 		{
+			BlockState newState = state.with(DOUBLE_CHEST, Boolean.valueOf(false));
+			
 			this.dropItemsAtRange(worldIn, pos, 5, 10);
-			worldIn.setBlockState(pos, state.with(DOUBLE_CHEST, Boolean.valueOf(false)), Constants.BlockFlags.BLOCK_UPDATE);
+			worldIn.setBlockState(pos, newState, Constants.BlockFlags.BLOCK_UPDATE);
+			
+			super.harvestBlock(worldIn, player, pos, newState, te, stack);
 		}
+		else
+			super.harvestBlock(worldIn, player, pos, state, te, stack);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -173,11 +177,7 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 		if (!state.isIn(newState.getBlock())) 
 		{
 			this.dropItemsAtRange(worldIn, pos, 0, 10);
-	        
-	        if (state.get(DOUBLE_CHEST))
-	        	TinyItemHandlerHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock().asItem()));
-	        
-	        super.onReplaced(state, worldIn, pos, newState, isMoving);
+			super.onReplaced(state, worldIn, pos, newState, isMoving);
 		}
 	}
 

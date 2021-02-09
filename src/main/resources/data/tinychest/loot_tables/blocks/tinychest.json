@@ -6,6 +6,21 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "tinychest:tinychest",
+                  "properties": {
+                    "double_tinychest": "true"
+                  }
+                }
+              ],
+              "count": 2
+            }
+          ],
           "name": "tinychest:tinychest"
         }
       ],
