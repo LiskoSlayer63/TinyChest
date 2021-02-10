@@ -2,18 +2,12 @@ package lizcraft.tinychest.common.gui;
 
 import lizcraft.tinychest.common.CommonContent;
 import lizcraft.tinychest.common.ITinyChestContainer;
-import lizcraft.tinychest.common.block.TinyChestBlock;
-import lizcraft.tinychest.common.tile.TinyChestTileEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -48,14 +42,8 @@ public class TinyChestContainer extends Container
 		
 		if (extraData != null)
 		{
-			World world = Minecraft.getInstance().world;
-			BlockPos pos = extraData.readBlockPos();
-			TileEntity tileEntity = world.getTileEntity(pos);
-			
-			if (tileEntity instanceof TinyChestTileEntity && tileEntity.getBlockState().get(TinyChestBlock.DOUBLE_CHEST))
-				this.inventory = new ItemStackHandler(TINYCHEST_LARGE_COUNT);
-			else
-				this.inventory = new ItemStackHandler(TINYCHEST_SLOTS_COUNT);
+			boolean isLarge = extraData.readBoolean();
+			this.inventory = new ItemStackHandler(isLarge ? TINYCHEST_LARGE_COUNT : TINYCHEST_SLOTS_COUNT);
 		}
 		else
 			this.inventory = new ItemStackHandler(TINYCHEST_SLOTS_COUNT);

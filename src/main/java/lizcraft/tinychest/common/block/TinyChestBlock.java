@@ -69,7 +69,10 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof TinyChestTileEntity && player instanceof ServerPlayerEntity)
 		{
-			NetworkHooks.openGui((ServerPlayerEntity)player, (TinyChestTileEntity)tileentity, pos);
+			TinyChestTileEntity chestTile = (TinyChestTileEntity)tileentity;
+			
+			NetworkHooks.openGui((ServerPlayerEntity)player, chestTile, (packet) -> packet.writeBoolean(chestTile.isLarge()));
+			
             player.addStat(this.getOpenStat());
             PiglinTasks.func_234478_a_(player, true);
 		}

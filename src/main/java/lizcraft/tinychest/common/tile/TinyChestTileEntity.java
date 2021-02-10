@@ -47,10 +47,7 @@ public class TinyChestTileEntity extends TileEntity implements ITinyChestContain
 		@Override
 		public int getSlots() 
 		{
-			Block block = getBlockState().getBlock();
-			if (block instanceof TinyChestBlock && getBlockState().get(TinyChestBlock.DOUBLE_CHEST))
-				return 10;
-			return  5;
+			return isLarge() ? 10 : 5;
 		}
 	};
 	protected final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> inventory);
@@ -190,6 +187,14 @@ public class TinyChestTileEntity extends TileEntity implements ITinyChestContain
 			this.numPlayersUsing--;
 			this.onOpenOrClose();
 		}
+	}
+	
+	public boolean isLarge()
+	{
+		Block block = getBlockState().getBlock();
+		if (block instanceof TinyChestBlock && getBlockState().get(TinyChestBlock.DOUBLE_CHEST))
+			return true;
+		return  false;
 	}
 	
 	protected void onOpenOrClose() 
