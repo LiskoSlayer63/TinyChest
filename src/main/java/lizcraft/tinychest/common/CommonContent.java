@@ -10,6 +10,7 @@ import lizcraft.tinychest.common.gui.TinyChestContainer;
 import lizcraft.tinychest.common.tile.TinyEnderChestTileEntity;
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
 import lizcraft.tinychest.common.tile.TinyTrappedChestTileEntity;
+import lizcraft.tinychest.compat.CommonCompat;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -50,6 +51,8 @@ public class CommonContent
 	public static void register(IEventBus eventBus)
 	{
 		eventBus.register(CommonContent.class);
+		
+		CommonCompat.register(eventBus);
 	}
 	
 	@SubscribeEvent

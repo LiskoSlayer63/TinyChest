@@ -165,7 +165,7 @@ public class TinyChestBlock extends Block implements IWaterLoggable
 			BlockState newState = state.with(DOUBLE_CHEST, Boolean.valueOf(false));
 			
 			this.dropItemsAtRange(worldIn, pos, 5, 10);
-			worldIn.setBlockState(pos, newState, Constants.BlockFlags.BLOCK_UPDATE);
+			worldIn.setBlockState(pos, newState, Constants.BlockFlags.BLOCK_UPDATE | Constants.BlockFlags.NOTIFY_NEIGHBORS);
 			
 			super.harvestBlock(worldIn, player, pos, newState, te, stack);
 		}

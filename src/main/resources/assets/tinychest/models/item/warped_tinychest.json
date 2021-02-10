@@ -1,0 +1,6 @@
+{
+    "parent": "tinychest:item/tinychest",
+    "textures": {
+        "particle": "minecraft:block/warped_planks"
+    }
+}

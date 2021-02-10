@@ -3,6 +3,7 @@ package lizcraft.tinychest.client;
 import lizcraft.tinychest.client.gui.TinyChestContainerScreen;
 import lizcraft.tinychest.client.render.TinyChestRenderer;
 import lizcraft.tinychest.common.CommonContent;
+import lizcraft.tinychest.compat.ClientCompat;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,8 @@ public class ClientContent
 	public static void register(IEventBus eventBus)
 	{
 		eventBus.register(ClientContent.class);
+		
+		ClientCompat.register(eventBus);
 	}
 	
 	@SubscribeEvent
