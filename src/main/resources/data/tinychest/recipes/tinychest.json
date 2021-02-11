@@ -1,16 +1,26 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "base_tinychest",
   "pattern": [
-    "###",
-    "# #",
-    "###"
+    " P ",
+    "P P",
+    " P "
   ],
   "key": {
-    "#": {
-      "item": "minecraft:stick"
+    "P": {
+      "tag": "minecraft:planks"
     }
   },
   "result": {
     "item": "tinychest:tinychest"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "tinychest:compat",
+        "modid": "quark"
+      }
+    }
+  ]
 }

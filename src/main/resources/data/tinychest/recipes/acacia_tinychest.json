@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "P P",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
+  "result": {
+    "item": "tinychest:acacia_tinychest"
+  },
+  "conditions": [
+    {
+      "type": "tinychest:compat",
+      "modid": "quark"
+    }
+  ]
+}

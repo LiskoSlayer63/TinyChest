@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "base_tinychest",
   "pattern": [
-    " P ",
-    "P P",
-    " P "
+    "###",
+    "# #",
+    "###"
   ],
   "key": {
-    "P": {
-      "tag": "minecraft:planks"
+    "#": {
+      "item": "minecraft:stick"
     }
   },
   "result": {

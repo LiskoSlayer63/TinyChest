@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "P P",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:dark_oak_planks"
+    }
+  },
+  "result": {
+    "item": "tinychest:dark_oak_tinychest"
+  },
+  "conditions": [
+    {
+      "type": "tinychest:compat",
+      "modid": "quark"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tinychest:oak_tinychest"
+    },
+    {
+      "item": "minecraft:tripwire_hook"
+    }
+  ],
+  "result": {
+    "item": "tinychest:oak_trapped_tinychest"
+  },
+  "conditions": [
+    {
+      "type": "tinychest:compat",
+      "modid": "quark"
+    }
+  ]
+}

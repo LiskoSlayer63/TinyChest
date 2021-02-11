@@ -1,0 +1,34 @@
+{
+  "replace": false,
+  "values": [
+    "tinychest:tinychest",
+    "tinychest:trapped_tinychest",
+    "tinychest:ender_tinychest"
+  ],
+  "optional": [
+    "tinychest:oak_tinychest",
+    "tinychest:spruce_tinychest",
+    "tinychest:birch_tinychest",
+    "tinychest:jungle_tinychest",
+    "tinychest:acacia_tinychest",
+    "tinychest:dark_oak_tinychest",
+    "tinychest:warped_tinychest",
+    "tinychest:crimson_tinychest",
+    "tinychest:nether_brick_tinychest",
+    "tinychest:purpur_tinychest",
+    "tinychest:prismarine_tinychest",
+    "tinychest:mushroom_tinychest",
+    "tinychest:oak_trapped_tinychest",
+    "tinychest:spruce_trapped_tinychest",
+    "tinychest:birch_trapped_tinychest",
+    "tinychest:jungle_trapped_tinychest",
+    "tinychest:acacia_trapped_tinychest",
+    "tinychest:dark_oak_trapped_tinychest",
+    "tinychest:warped_trapped_tinychest",
+    "tinychest:crimson_trapped_tinychest",
+    "tinychest:nether_brick_trapped_tinychest",
+    "tinychest:purpur_trapped_tinychest",
+    "tinychest:prismarine_trapped_tinychest",
+    "tinychest:mushroom_trapped_tinychest"
+  ]
+}

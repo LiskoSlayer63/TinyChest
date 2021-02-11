@@ -11,6 +11,7 @@ import lizcraft.tinychest.common.tile.TinyEnderChestTileEntity;
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
 import lizcraft.tinychest.common.tile.TinyTrappedChestTileEntity;
 import lizcraft.tinychest.compat.CommonCompat;
+import lizcraft.tinychest.compat.TinyChestCompatCondition;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -23,6 +24,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -51,7 +53,8 @@ public class CommonContent
 	public static void register(IEventBus eventBus)
 	{
 		eventBus.register(CommonContent.class);
-		
+		CraftingHelper.register(TinyChestCompatCondition.SERIALIZER);
+
 		CommonCompat.register(eventBus);
 	}
 	

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "P P",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:warped_planks"
+    }
+  },
+  "result": {
+    "item": "tinychest:warped_tinychest"
+  },
+  "conditions": [
+    {
+      "type": "tinychest:compat",
+      "modid": "quark"
+    }
+  ]
+}

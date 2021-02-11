@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "tinychest:tinychest",
-    "tinychest:trapped_tinychest",
-    "tinychest:ender_tinychest"
+    "#tinychest:tinychests"
   ]
 }

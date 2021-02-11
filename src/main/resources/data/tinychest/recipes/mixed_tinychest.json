@@ -1,0 +1,9 @@
+{
+  "type": "tinychest:mixed_tinychest",
+  "conditions": [
+    {
+      "type": "tinychest:compat",
+      "modid": "quark"
+    }
+  ]
+} 

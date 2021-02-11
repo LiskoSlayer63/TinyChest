@@ -10,6 +10,7 @@ import lizcraft.tinychest.compat.quark.common.block.VariantTinyChestBlock;
 import lizcraft.tinychest.compat.quark.common.block.VariantTinyTrappedChestBlock;
 import lizcraft.tinychest.compat.quark.common.tile.VariantTinyChestTileEntity;
 import lizcraft.tinychest.compat.quark.common.tile.VariantTinyTrappedChestTileEntity;
+import lizcraft.tinychest.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
@@ -19,6 +20,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.quark.base.handler.MiscUtil;
 
 public class QuarkCommon 
@@ -37,7 +39,10 @@ public class QuarkCommon
 	
 	public static void register(IEventBus eventBus)
 	{
+		Logger.info("Enabling Quark compatibility");
 		eventBus.register(QuarkCommon.class);
+		
+		ForgeRegistries.RECIPE_SERIALIZERS.register(MixedTinyChestRecipe.SERIALIZER);
 	}
 	
 	@SubscribeEvent

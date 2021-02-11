@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "tinychest:nether_brick_trapped_tinychest",
+                  "properties": {
+                    "double_tinychest": "true"
+                  }
+                }
+              ],
+              "count": 2
+            }
+          ],
+          "name": "tinychest:nether_brick_trapped_tinychest"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}
