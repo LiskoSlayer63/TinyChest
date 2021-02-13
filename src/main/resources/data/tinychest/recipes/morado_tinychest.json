@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "P P",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "atmospheric:morado_planks"
+    }
+  },
+  "result": {
+    "item": "tinychest:morado_tinychest"
+  },
+  "conditions": [
+    {
+      "type": "tinychest:compat",
+      "modid": "atmospheric"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/LiskoSlayer63/TinyChest/issues"
 
 [[mods]]
 modId="tinychest"
-version="1.4.0-beta2"
+version="1.4.1"
 
 displayName="TinyChest"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tinychest"
@@ -35,5 +35,12 @@ Adds tiny chests!
     modId="quark"
     mandatory=false
     versionRange="[r2.4,)"
+    ordering="AFTER"
+    side="BOTH"
+	
+[[dependencies.tinychest]]
+    modId="atmospheric"
+    mandatory=false
+    versionRange="[3.0.0,)"
     ordering="AFTER"
     side="BOTH"

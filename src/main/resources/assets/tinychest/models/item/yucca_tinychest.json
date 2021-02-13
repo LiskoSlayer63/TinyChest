@@ -1,0 +1,6 @@
+{
+    "parent": "tinychest:item/tinychest",
+    "textures": {
+        "particle": "atmospheric:block/yucca_planks"
+    }
+}

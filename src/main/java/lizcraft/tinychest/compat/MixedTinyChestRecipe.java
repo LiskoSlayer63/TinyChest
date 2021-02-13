@@ -1,4 +1,4 @@
-package lizcraft.tinychest.compat.quark.common;
+package lizcraft.tinychest.compat;
 
 import com.google.gson.JsonObject;
 
@@ -6,6 +6,7 @@ import lizcraft.tinychest.TinyChest;
 import lizcraft.tinychest.common.CommonContent;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -16,6 +17,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /*
@@ -24,9 +26,19 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 public class MixedTinyChestRecipe implements ICraftingRecipe, IShapedRecipe<CraftingInventory>
 {
 	public static final Serializer SERIALIZER = new Serializer();
+	private static boolean isRegistered = false;
 	
 	private final ResourceLocation resourceLoc;
 	private NonNullList<Ingredient> ingredients;
+	
+	public static void register()
+	{
+		if (!isRegistered)
+		{
+			isRegistered = true;
+			ForgeRegistries.RECIPE_SERIALIZERS.register(SERIALIZER);
+		}
+	}
 	
 	public MixedTinyChestRecipe(ResourceLocation resourceLoc)
 	{
@@ -112,7 +124,7 @@ public class MixedTinyChestRecipe implements ICraftingRecipe, IShapedRecipe<Craf
 			if (i % 2 == 0 && !stack.isEmpty() || i % 2 != 0 && !stack.getItem().isIn(ItemTags.PLANKS))
 				return false;
 			
-			if (!prev.isEmpty() && !stack.isEmpty() && !ItemStack.areItemsEqual(prev, stack))
+			if (!prev.isEmpty() && !stack.isEmpty() && (!ItemStack.areItemsEqual(prev, stack) || !isTinyChestMaterial(stack.getItem())))
 				foundDifference = true;
 			
 			if (!stack.isEmpty())
@@ -121,6 +133,17 @@ public class MixedTinyChestRecipe implements ICraftingRecipe, IShapedRecipe<Craf
 		
 		return foundDifference;
 	}
+	
+	private static boolean isTinyChestMaterial(Item item) 
+	{
+		ResourceLocation res = item.getRegistryName();
+		if(res.getNamespace().equals("minecraft"))
+			return true;
+		
+		ResourceLocation check = new ResourceLocation(TinyChest.MOD_ID, res.getPath().replace("_planks", "_tinychest"));
+		return ForgeRegistries.ITEMS.containsKey(check);
+	}
+
 
 	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MixedTinyChestRecipe>
 	{

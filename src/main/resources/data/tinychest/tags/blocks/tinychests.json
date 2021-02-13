@@ -18,6 +18,12 @@
     "tinychest:purpur_tinychest",
     "tinychest:prismarine_tinychest",
     "tinychest:mushroom_tinychest",
+	"tinychest:rosewood_tinychest",
+	"tinychest:morado_tinychest",
+	"tinychest:yucca_tinychest",
+	"tinychest:kousa_tinychest",
+	"tinychest:aspen_tinychest",
+	"tinychest:grimwood_tinychest",
     "tinychest:oak_trapped_tinychest",
     "tinychest:spruce_trapped_tinychest",
     "tinychest:birch_trapped_tinychest",
@@ -29,6 +35,12 @@
     "tinychest:nether_brick_trapped_tinychest",
     "tinychest:purpur_trapped_tinychest",
     "tinychest:prismarine_trapped_tinychest",
-    "tinychest:mushroom_trapped_tinychest"
+    "tinychest:mushroom_trapped_tinychest",
+	"tinychest:rosewood_trapped_tinychest",
+	"tinychest:morado_trapped_tinychest",
+	"tinychest:yucca_trapped_tinychest",
+	"tinychest:kousa_trapped_tinychest",
+	"tinychest:aspen_trapped_tinychest",
+	"tinychest:grimwood_trapped_tinychest"
   ]
 }

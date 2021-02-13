@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lizcraft.tinychest.client.render.TinyChestRenderer;
+import lizcraft.tinychest.compat.quark.common.IQuarkChestTextureProvider;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.model.RenderMaterial;
@@ -12,15 +13,13 @@ import net.minecraft.state.properties.ChestType;
 import net.minecraft.tileentity.IChestLid;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import vazkii.quark.base.Quark;
-import vazkii.quark.content.building.module.VariantChestsModule.IChestTextureProvider;
 
-public class VariantTinyChestRenderer<T extends TileEntity & IChestLid> extends TinyChestRenderer<T>
+public class QuarkTinyChestRenderer<T extends TileEntity & IChestLid> extends TinyChestRenderer<T>
 {
 	private static Map<Block, ChestTextureBatch> chestTextures = new HashMap<>();
 	public static Block invBlock = null; 
 	
-	public VariantTinyChestRenderer(TileEntityRendererDispatcher rendererDispatcherIn) 
+	public QuarkTinyChestRenderer(TileEntityRendererDispatcher rendererDispatcherIn) 
 	{
 		super(rendererDispatcherIn);
 	}
@@ -57,9 +56,9 @@ public class VariantTinyChestRenderer<T extends TileEntity & IChestLid> extends 
 	
 	public static void addBlock(Block chest)
 	{
-		if(chest instanceof IChestTextureProvider) 
+		if(chest instanceof IQuarkChestTextureProvider) 
 		{
-			IChestTextureProvider prov = (IChestTextureProvider) chest;
+			IQuarkChestTextureProvider prov = (IQuarkChestTextureProvider) chest;
 
 			String path = prov.getChestTexturePath();
 			
@@ -72,9 +71,9 @@ public class VariantTinyChestRenderer<T extends TileEntity & IChestLid> extends 
 	
 	private static void addTexture(Block chest, String path, String normal, String left, String right)
 	{
-		ResourceLocation resNormal = new ResourceLocation(Quark.MOD_ID, path + normal);
-		ResourceLocation resLeft = new ResourceLocation(Quark.MOD_ID, path + left);
-		ResourceLocation resRight = new ResourceLocation(Quark.MOD_ID, path + right);
+		ResourceLocation resNormal = new ResourceLocation("quark", path + normal);
+		ResourceLocation resLeft = new ResourceLocation("quark", path + left);
+		ResourceLocation resRight = new ResourceLocation("quark", path + right);
 		
 		ChestTextureBatch batch = new ChestTextureBatch(Atlases.CHEST_ATLAS, resNormal, resLeft, resRight);
 		chestTextures.put(chest, batch);

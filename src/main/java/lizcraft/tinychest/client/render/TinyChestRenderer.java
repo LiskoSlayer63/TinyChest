@@ -105,8 +105,7 @@ public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEnt
         {
 		    matrixStackIn.translate(-0.5D, -1.0D, -0.5D);
 		    
-			RenderMaterial renderMaterial = this.getRenderMaterial(tileEntityIn, ChestType.SINGLE, this.isChristmas);
-		    IVertexBuilder renderBuffer = renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
+			IVertexBuilder renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.SINGLE, this.isChristmas);
 		    
 		    this.renderModels(matrixStackIn, renderBuffer, this.singleLid, this.singleLatch, this.singleBottom, lidAngle, combinedLightIn, combinedOverlayIn);
         } 
@@ -114,15 +113,13 @@ public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEnt
         {
 		    matrixStackIn.translate(-1.0D, -1.0D, -0.5D);
 
-			RenderMaterial renderMaterial = this.getRenderMaterial(tileEntityIn, ChestType.RIGHT, this.isChristmas);
-		    IVertexBuilder renderBuffer = renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
+		    IVertexBuilder renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.RIGHT, this.isChristmas);
 		    
 		    this.renderModels(matrixStackIn, renderBuffer, this.rightLid, this.rightLatch, this.rightBottom, lidAngle, combinedLightIn, combinedOverlayIn);
 		    
 		    matrixStackIn.translate(1.0D, 0.0D, 0.0D);
 
-			renderMaterial = this.getRenderMaterial(tileEntityIn, ChestType.LEFT, this.isChristmas);
-		    renderBuffer = renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
+		    renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.LEFT, this.isChristmas);
 		    
 		    this.renderModels(matrixStackIn, renderBuffer, this.leftLid, this.leftLatch, this.leftBottom, lidAngle, combinedLightIn, combinedOverlayIn);
         }
@@ -138,6 +135,12 @@ public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEnt
 		chestBottom.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
 		chestLid.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
 		chestLatch.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
+	}
+	
+	protected IVertexBuilder getBuffer(IRenderTypeBuffer bufferIn, TileEntity tileEntity, ChestType type, boolean isHoliday)
+	{
+		RenderMaterial renderMaterial = this.getRenderMaterial(tileEntity, type, isHoliday);
+	    return renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
 	}
 	
 	protected RenderMaterial getRenderMaterial(TileEntity tileEntity, ChestType type, boolean isHoliday)

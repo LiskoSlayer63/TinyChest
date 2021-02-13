@@ -3,7 +3,7 @@
   "conditions": [
     {
       "type": "tinychest:compat",
-      "modid": "quark"
+      "modid": "_any"
     }
   ]
 } 

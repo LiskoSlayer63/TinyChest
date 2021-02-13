@@ -1,28 +1,26 @@
 package lizcraft.tinychest.compat.quark.common.block;
 
-import vazkii.quark.content.building.module.VariantChestsModule;
-
-import lizcraft.tinychest.common.block.TinyChestBlock;
-import lizcraft.tinychest.compat.quark.common.tile.VariantTinyChestTileEntity;
-
+import lizcraft.tinychest.common.block.TinyTrappedChestBlock;
+import lizcraft.tinychest.compat.quark.common.IQuarkChestTextureProvider;
+import lizcraft.tinychest.compat.quark.common.tile.QuarkTinyTrappedChestTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
-public class VariantTinyChestBlock extends TinyChestBlock implements VariantChestsModule.IChestTextureProvider
+public class QuarkTinyTrappedChestBlock extends TinyTrappedChestBlock implements IQuarkChestTextureProvider
 {
 	private String path;
 	
-	public VariantTinyChestBlock(String type, Properties properties) 
+	public QuarkTinyTrappedChestBlock(String type, Properties properties) 
 	{
 		super(properties);
 		path = type + "/";
 	}
-
+	
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) 
 	{
-		return new VariantTinyChestTileEntity();
+		return new QuarkTinyTrappedChestTileEntity();
 	}
 
 	@Override
@@ -34,6 +32,6 @@ public class VariantTinyChestBlock extends TinyChestBlock implements VariantChes
 	@Override
 	public boolean isTrap() 
 	{
-		return false;
+		return true;
 	}
 }

@@ -20,13 +20,6 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
-repositories {
-	maven { // Quark and autorreglib
-        name = "BlameJared"
-        url = "https://maven.blamejared.com"
-    }
-}
-
 minecraft {
     mappings channel: "${mappings_type}", version: "${mappings_version}"
 
@@ -81,9 +74,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
-	
-	compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
-	compileOnly "vazkii.quark:Quark:${quark_version}"
 }
 
 jar {

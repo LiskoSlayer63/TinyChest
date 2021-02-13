@@ -19,7 +19,7 @@
       "type": "forge:not",
       "value": {
         "type": "tinychest:compat",
-        "modid": "quark"
+        "modid": "_any"
       }
     }
   ]

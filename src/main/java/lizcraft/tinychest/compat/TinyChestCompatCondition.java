@@ -29,7 +29,7 @@ public class TinyChestCompatCondition implements ICondition
 	@Override
 	public boolean test() 
 	{
-		return CommonCompat.isEnabled(this.modid);
+		return modid.equals("_any") ? CommonCompat.isEnabled() : CommonCompat.isEnabled(this.modid);
 	}
 
 	public static class Serializer implements IConditionSerializer<TinyChestCompatCondition>

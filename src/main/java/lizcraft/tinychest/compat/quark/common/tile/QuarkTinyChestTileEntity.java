@@ -3,10 +3,10 @@ package lizcraft.tinychest.compat.quark.common.tile;
 import lizcraft.tinychest.common.tile.TinyChestTileEntity;
 import lizcraft.tinychest.compat.quark.common.QuarkCommon;
 
-public class VariantTinyChestTileEntity extends TinyChestTileEntity
+public class QuarkTinyChestTileEntity extends TinyChestTileEntity
 {
-	public VariantTinyChestTileEntity() 
+	public QuarkTinyChestTileEntity() 
 	{
-		super(QuarkCommon.VARIANT_TINYCHEST_TILEENTITYTYPE);
+		super(QuarkCommon.TINYCHEST_TILEENTITYTYPE);
 	}
 }

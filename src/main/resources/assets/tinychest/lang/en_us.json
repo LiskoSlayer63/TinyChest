@@ -30,5 +30,18 @@
 	"block.tinychest.nether_brick_trapped_tinychest": "Tiny Nether Brick Trapped Chest",
 	"block.tinychest.purpur_trapped_tinychest": "Tiny Purpur Trapped Chest",
 	"block.tinychest.prismarine_trapped_tinychest": "Tiny Prismarine Trapped Chest",
-	"block.tinychest.mushroom_trapped_tinychest": "Tiny Mushroom Trapped Chest"
+	"block.tinychest.mushroom_trapped_tinychest": "Tiny Mushroom Trapped Chest",
+	
+	"block.tinychest.rosewood_tinychest": "Tiny Rosewood Chest",
+	"block.tinychest.morado_tinychest": "Tiny Morado Chest",
+	"block.tinychest.yucca_tinychest": "Tiny Yucca Chest",
+	"block.tinychest.kousa_tinychest": "Tiny Kousa Chest",
+	"block.tinychest.aspen_tinychest": "Tiny Aspen Chest",
+	"block.tinychest.grimwood_tinychest": "Tiny Grimwood Chest",
+	"block.tinychest.rosewood_trapped_tinychest": "Tiny Rosewood Trapped Chest",
+	"block.tinychest.morado_trapped_tinychest": "Tiny Morado Trapped Chest",
+	"block.tinychest.yucca_trapped_tinychest": "Tiny Yucca Trapped Chest",
+	"block.tinychest.kousa_trapped_tinychest": "Tiny Kousa Trapped Chest",
+	"block.tinychest.aspen_trapped_tinychest": "Tiny Aspen Trapped Chest",
+	"block.tinychest.grimwood_trapped_tinychest": "Tiny Grimwood Trapped Chest"
 }
