@@ -44,7 +44,7 @@ public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEnt
 		
 		Calendar calendar = Calendar.getInstance();
 		if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26)
-	         this.isChristmas = true;
+			this.isChristmas = true;
 		
 		this.singleBottom = new ModelRenderer(64, 64, 0, 19);
 		this.singleBottom.addBox(1.0F, 0.0F, 1.0F, 14.0F, 10.0F, 14.0F, 0.0F);
