@@ -87,44 +87,44 @@ public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEnt
 	public void render(T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) 
 	{
 		World world = tileEntityIn.getWorld();
-	    BlockState blockstate = world != null ? tileEntityIn.getBlockState() : CommonContent.TINYCHEST_BLOCK.getDefaultState().with(TinyChestBlock.FACING, Direction.SOUTH);
+		BlockState blockstate = world != null ? tileEntityIn.getBlockState() : CommonContent.TINYCHEST_BLOCK.getDefaultState().with(TinyChestBlock.FACING, Direction.SOUTH);
 		
 		matrixStackIn.push();
 		
 		boolean isDouble = tileEntityIn instanceof TinyChestTileEntity ? blockstate.get(TinyChestBlock.DOUBLE_CHEST) : false;
 		float rotAngle = blockstate.get(TinyChestBlock.FACING).getHorizontalAngle();
 
-        float lidAngle = 1.0F - tileEntityIn.getLidAngle(partialTicks);
-        lidAngle = 1.0F - lidAngle * lidAngle * lidAngle;
+		float lidAngle = 1.0F - tileEntityIn.getLidAngle(partialTicks);
+		lidAngle = 1.0F - lidAngle * lidAngle * lidAngle;
 
-        matrixStackIn.translate(0.5D, 0.5D, 0.5D);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(-rotAngle));
-	    matrixStackIn.scale(0.5F, 0.5F, 0.5F);
+		matrixStackIn.translate(0.5D, 0.5D, 0.5D);
+		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(-rotAngle));
+		matrixStackIn.scale(0.5F, 0.5F, 0.5F);
         
-        if (!isDouble)
-        {
-		    matrixStackIn.translate(-0.5D, -1.0D, -0.5D);
+		if (!isDouble)
+		{
+			matrixStackIn.translate(-0.5D, -1.0D, -0.5D);
 		    
 			IVertexBuilder renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.SINGLE, this.isChristmas);
 		    
-		    this.renderModels(matrixStackIn, renderBuffer, this.singleLid, this.singleLatch, this.singleBottom, lidAngle, combinedLightIn, combinedOverlayIn);
-        } 
-        else
-        {
-		    matrixStackIn.translate(-1.0D, -1.0D, -0.5D);
+			this.renderModels(matrixStackIn, renderBuffer, this.singleLid, this.singleLatch, this.singleBottom, lidAngle, combinedLightIn, combinedOverlayIn);
+		} 
+		else
+		{
+			matrixStackIn.translate(-1.0D, -1.0D, -0.5D);
 
-		    IVertexBuilder renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.RIGHT, this.isChristmas);
+			IVertexBuilder renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.RIGHT, this.isChristmas);
 		    
-		    this.renderModels(matrixStackIn, renderBuffer, this.rightLid, this.rightLatch, this.rightBottom, lidAngle, combinedLightIn, combinedOverlayIn);
+			this.renderModels(matrixStackIn, renderBuffer, this.rightLid, this.rightLatch, this.rightBottom, lidAngle, combinedLightIn, combinedOverlayIn);
 		    
-		    matrixStackIn.translate(1.0D, 0.0D, 0.0D);
+			matrixStackIn.translate(1.0D, 0.0D, 0.0D);
 
-		    renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.LEFT, this.isChristmas);
+			renderBuffer = this.getBuffer(bufferIn, tileEntityIn, ChestType.LEFT, this.isChristmas);
 		    
-		    this.renderModels(matrixStackIn, renderBuffer, this.leftLid, this.leftLatch, this.leftBottom, lidAngle, combinedLightIn, combinedOverlayIn);
-        }
+			this.renderModels(matrixStackIn, renderBuffer, this.leftLid, this.leftLatch, this.leftBottom, lidAngle, combinedLightIn, combinedOverlayIn);
+		}
         
-	    matrixStackIn.pop();
+		matrixStackIn.pop();
 	}
 	
 	private void renderModels(MatrixStack matrixStackIn, IVertexBuilder bufferIn, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int packedLightIn, int packedOverlayIn)
@@ -140,7 +140,7 @@ public class TinyChestRenderer<T extends TileEntity & IChestLid> extends TileEnt
 	protected IVertexBuilder getBuffer(IRenderTypeBuffer bufferIn, TileEntity tileEntity, ChestType type, boolean isHoliday)
 	{
 		RenderMaterial renderMaterial = this.getRenderMaterial(tileEntity, type, isHoliday);
-	    return renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
+		return renderMaterial.getBuffer(bufferIn, RenderType::getEntityCutout);
 	}
 	
 	protected RenderMaterial getRenderMaterial(TileEntity tileEntity, ChestType type, boolean isHoliday)
