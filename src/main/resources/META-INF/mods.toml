@@ -6,9 +6,9 @@ issueTrackerURL="https://github.com/LiskoSlayer63/TinyChest/issues"
 
 [[mods]]
 modId="tinychest"
-version="1.4.1"
+version="1.4.2"
 
-displayName="TinyChest"
+displayName="Tiny Chests"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tinychest"
 logoFile="tinychest.png"
 authors="LiskoSlayer63"
