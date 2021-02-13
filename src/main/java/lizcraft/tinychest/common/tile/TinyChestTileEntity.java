@@ -6,7 +6,6 @@ import lizcraft.tinychest.common.block.TinyChestBlock;
 import lizcraft.tinychest.common.gui.TinyChestContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -96,7 +95,7 @@ public class TinyChestTileEntity extends TileEntity implements ITinyChestContain
 	public void tick() 
 	{
 		if (++this.ticksSinceSync % 20 * 4 == 0) 
-			this.world.addBlockEvent(this.pos, Blocks.ENDER_CHEST, 1, this.numPlayersUsing);
+			this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
 		
 		this.prevLidAngle = this.lidAngle;
 		
